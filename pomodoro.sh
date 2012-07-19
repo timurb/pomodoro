@@ -56,6 +56,7 @@ check_string "$ACTION"
 
 which notify-send > /dev/null || fail "notify-send not found. 'apt-get install libnotify-bin' is likely to help you"
 
+[ -r "$HOME/.pomodoro-config" ] && . "$HOME/.pomodoro-config"
 [ -n "$POMODORO_CONFIG" ] && . "$POMODORO_CONFIG"
 
 if [ -z "$ACTIONS" ]; then
