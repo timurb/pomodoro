@@ -5,10 +5,7 @@ Pomodoro in shell
 TODO
 ----
 
-* become singleton
-* commands: 'state', 'stop'
-
-
+* become singleton (???)
 
 
 ----------------------------------------------
