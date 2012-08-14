@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ "$1" = "--notify" ]; then
+  NOTIFY=1
+  shift
+fi
+
 ACTION=$1
 TIME=$2
 ICON_PATH="$( dirname $( readlink $0 ) )"
@@ -49,6 +54,12 @@ set_alarm() {
   ) |  at "now+$2min"
 }
 
+send_info() {
+  [ -z "$3" ] && fail "Usage: send_info() ACTION NEXT_ACTION TIME"
+
+  notify-send -i "$( icon_name $1 $)" $NOTIFY_OPTIONS "Time for $1. You'll have a $2 at $(date --date=now+$3min)"
+}
+
 ### Main program starts here
 
 [ -z "$ACTION" ] && usage
@@ -80,3 +91,4 @@ done
 [ -z "$ACTION_FOUND" ] && fail "Unknown action: ${ACTION}"
 
 set_alarm $NEXT_ACTION $TIME $REPEAT
+[ -n "$NOTIFY" ] && send_info $ACTION $NEXT_ACTION $TIME
