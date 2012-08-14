@@ -43,6 +43,7 @@ set_alarm() {
   [ -z "$2" ] && fail "Usage: set_alarm() ACTION TIME REPEAT"
 
   (
+    echo "echo \"POMODORO_ACTION:$1:\" > /dev/null" # this is needed for checking current status
     echo "DISPLAY=$DISPLAY notify-send -i \"$( icon_name $1 )\" $NOTIFY_OPTIONS \"$( message $1)\""
     [ -n "$REPEAT" ] && echo "DISPLAY=$DISPLAY POMODORO_CONFIG=\"$POMODORO_CONFIG\" $0 $1"
   ) |  at "now+$2min"
